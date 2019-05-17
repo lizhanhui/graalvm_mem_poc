@@ -44,7 +44,7 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         long c = count.incrementAndGet();
-        if (c % 100 == 0) {
+        if (c % 10000 == 0) {
             System.out.println("Count: " + c);
         }
     }
