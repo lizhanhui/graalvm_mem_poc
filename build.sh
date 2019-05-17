@@ -20,7 +20,7 @@ if [ ! -d build ]; then
 fi
 
 native-image --shared                             \
-             -H:ReflectionConfigurationFiles=reflection_config.json \
+             -H:ReflectionConfigurationFiles=reflect-config.json \
              -H:Path=./build                      \
              -R:+PrintGC                          \
              -R:+VerboseGC                        \
@@ -28,7 +28,8 @@ native-image --shared                             \
              -H:CLibraryPath=./client/src/main/c  \
 	     -H:+ReportExceptionStackTraces       \
 	     --allow-incomplete-classpath         \
-             -Dio.netty.noUnsafe=true
+             -Dio.netty.noUnsafe=true             \
+	     --initialize-at-build-time
 
 if test $? = 0; then
     cp build/client.so build/libclient.so
