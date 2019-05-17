@@ -83,13 +83,14 @@ public class CInterface {
 
         EchoClient client = new EchoClient();
 
-        while (true) {
+        for (int i = 0; i < 1000; i++) {
             try {
                 client.ping(content);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        client.shutdown();
     }
 
 }
