@@ -22,7 +22,7 @@ class ApiDirective implements CContext.Directives {
     }
 
     public List<String> getHeaderFiles() {
-        return Collections.singletonList("<simple_data.h>");
+        return Collections.singletonList("<poc/simple_data.h>");
     }
 }
 

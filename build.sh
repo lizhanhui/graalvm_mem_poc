@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cp client/src/main/c/simple_data.h /usr/local/include
+cp -r client/src/main/c/poc /usr/local/include/
 
 if test $? != 0 ; then
     echo "Copy header file failed"
