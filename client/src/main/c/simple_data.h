@@ -7,7 +7,7 @@ extern "C" {
 
 typedef struct simple_data_struct {
     char *str;
-    int len;
+    long len;
 } simple_data;
 
 #ifdef __cplusplus
