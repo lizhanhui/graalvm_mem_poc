@@ -25,13 +25,13 @@ public class CInterface {
         }
 
         public List<String> getHeaderFiles() {
-            return Collections.singletonList("<data.h>");
+            return Collections.singletonList("<simple_data.h>");
         }
     }
 
 
-    @CStruct("data")
-    interface Data extends PointerBase {
+    @CStruct("simple_data")
+    interface SimpleData extends PointerBase {
         @CField("str")
         CCharPointer getStr();
 
@@ -60,11 +60,11 @@ public class CInterface {
 
 
     @CEntryPoint(name = "ping")
-    public static int ping(IsolateThread thread, int instanceId, Data data) {
+    public static int ping(IsolateThread thread, int instanceId, SimpleData simpleData) {
         EchoClient client = clients.get(instanceId);
         try {
             if (null != client) {
-                String content = CTypeConversion.toJavaString(data.getStr(), WordFactory.unsigned(data.getLen()));
+                String content = CTypeConversion.toJavaString(simpleData.getStr(), WordFactory.unsigned(simpleData.getLen()));
                 client.ping(content);
             }
             return 0;
