@@ -21,7 +21,7 @@ public class CInterface {
     public static class ApiDirective implements CContext.Directives {
 
         public List<String> getOptions() {
-            return Arrays.asList("-I/Users/lizhanhui/opensource/netty-poc/client/src/main/c");
+            return Arrays.asList("-I/usr/local/include");
         }
 
         public List<String> getHeaderFiles() {
