@@ -23,7 +23,7 @@ public class CInterface {
     static class ApiDirective implements CContext.Directives {
 
         public List<String> getOptions() {
-            return Arrays.asList("-I/home/shutian.lzh/include");
+            return Arrays.asList("-I/root/include");
         }
 
         public List<String> getHeaderFiles() {
