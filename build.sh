@@ -15,12 +15,12 @@ native-image --server-shutdown-all
 
 mvn clean package
 
-if [ -d build ]; then
-	rm -fr build
+if [ ! -d build ]; then
+    mkdir build
 fi
-mkdir build
 
 native-image --shared                             \
+             -H:ReflectionConfigurationFiles=reflection_config.json \
              -H:Path=./build                      \
              -R:+PrintGC                          \
              -R:+VerboseGC                        \

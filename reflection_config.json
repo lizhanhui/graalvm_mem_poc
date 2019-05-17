@@ -90,5 +90,11 @@
     {"name":"publicSelectedKeys"}, 
     {"name":"selectedKeys"}
   ]
+},
+{
+  "name":"io.netty.channel.DefaultChannelPipeline$TailContext",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
 }
 ]
