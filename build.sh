@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-cp -r client/src/main/c/poc /usr/local/include/
+
+if test -d $HOME/include; then
+    mkdir -p $HOME/include
+fi
+
+cp -r client/src/main/c/poc $HOME/include/
 
 if test $? != 0 ; then
     echo "Copy header file failed"

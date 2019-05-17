@@ -5,10 +5,10 @@
 extern "C" {
 #endif
 
-typedef struct simple_data_struct {
-    char *str;
-    long len;
-} simple_data;
+typedef struct my_data_struct {
+    char *f_str;
+    int len;
+} my_data;
 
 #ifdef __cplusplus
 }

@@ -15,22 +15,25 @@ import org.graalvm.nativeimage.c.type.CTypeConversion;
 import org.graalvm.word.PointerBase;
 import org.graalvm.word.WordFactory;
 
-class ApiDirective implements CContext.Directives {
 
-    public List<String> getOptions() {
-        return Arrays.asList("-I/usr/local/include");
-    }
 
-    public List<String> getHeaderFiles() {
-        return Collections.singletonList("<poc/simple_data.h>");
-    }
-}
-
-@CContext(ApiDirective.class)
+@CContext(CInterface.ApiDirective.class)
 public class CInterface {
-    @CStruct("simple_data")
+
+    static class ApiDirective implements CContext.Directives {
+
+        public List<String> getOptions() {
+            return Arrays.asList("-I/home/shutian.lzh/include");
+        }
+
+        public List<String> getHeaderFiles() {
+            return Collections.singletonList("<poc/data.h>");
+        }
+    }
+
+    @CStruct("my_data")
     interface SimpleData extends PointerBase {
-        @CField("str")
+        @CField("f_str")
         CCharPointer getStr();
 
         @CField("str")
