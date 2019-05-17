@@ -26,4 +26,6 @@ native-image --shared                             \
              -R:+VerboseGC                        \
              -jar ./client/target/client.jar      \
              -H:CLibraryPath=./client/src/main/c  \
+	     -H:+ReportExceptionStackTraces       \
+	     --allow-incomplete-classpath         \
              -Dio.netty.noUnsafe=true
