@@ -36,7 +36,7 @@ public class CInterface {
         @CField("f_str")
         CCharPointer getStr();
 
-        @CField("str")
+        @CField("f_str")
         void setStr(CCharPointer value);
 
         @CField("len")
