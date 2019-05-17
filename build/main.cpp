@@ -1,8 +1,8 @@
 #include <iostream>
 #include <thread>
 #include <vector>
-#include "client.h"
 #include "poc/data.h"
+#include "client.h"
 
 int main(int argc, char **argv) {
     graal_isolate_t *isolate = nullptr;
