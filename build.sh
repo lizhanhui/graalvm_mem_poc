@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cp client/src/main/c/simple_data.h /usr/local/include
 native-image --server-shutdown-all
 native-image --shared \
              -R:+PrintGC \
