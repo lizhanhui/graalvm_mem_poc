@@ -10,6 +10,11 @@ native-image --server-shutdown-all
 
 mvn clean package
 
+if [ -d build ]; then
+	rm -fr build
+fi
+mkdir build
+
 native-image --shared                             \
              -H:Path=./build                      \
              -R:+PrintGC                          \
