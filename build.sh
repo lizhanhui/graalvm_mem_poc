@@ -29,3 +29,7 @@ native-image --shared                             \
 	     -H:+ReportExceptionStackTraces       \
 	     --allow-incomplete-classpath         \
              -Dio.netty.noUnsafe=true
+
+if test $? = 0; then
+    cp build/client.so build/libclient.so
+fi
