@@ -1,7 +1,12 @@
 package com.labx.client;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,6 +78,44 @@ public class CInterface {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    private static final String HEAP_DUMP_COMMAND = "HeapDump.dumpHeap(FileOutputStream, Boolean)Boolean";
+
+    /**
+     * Generate heap dump and save it into temp file.
+     */
+    private static void createHeapDump() {
+        boolean heapDumpCreated = false;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
+            String userHome = System.getProperty("user.home");
+            File file = new File(new File(userHome), "SVMHeapDump-" + sdf.format(new Date()) + ".hprof");
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            // Create heap dump
+            final Object[] args = new Object[]{HEAP_DUMP_COMMAND, fileOutputStream, Boolean.TRUE};
+            final Object resultObject = Compiler.command(args);
+            // Following code checks if heap dump was created using return value
+            if (resultObject instanceof Boolean) {
+                heapDumpCreated = ((Boolean) resultObject).booleanValue();
+            }
+            fileOutputStream.close();
+
+            if (heapDumpCreated){
+                System.out.println("  Heap dump created " + file.getAbsolutePath() + ", size: " + file.length());
+            } else {
+                // Delete the file to not pollute disk with empty files.
+                System.out.println("  Heap dump creation failed.");
+                file.delete();
+            }
+        } catch (IOException ioe) {
+            System.out.println("  Caught IOException.");
+        }
+    }
+
+    @CEntryPoint(name = "dump_heap")
+    public static void dumpHeap(IsolateThread thread) {
+        createHeapDump();
     }
 
     public static void main(String[] args) {

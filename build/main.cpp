@@ -4,9 +4,34 @@
 #include "poc/data.h"
 #include "client.h"
 
+graal_isolate_t *isolate = nullptr;
+
+void sig_handler(int sig_num) {
+  if (sig_num == SIGUSR1) {
+    graal_isolatethread_t *thread = graal_get_current_thread(isolate);
+    bool need_detachment = false;
+    if (thread == nullptr) {
+      if (graal_attach_thread(isolate, &thread)) {
+        std::cout << "Failed to attach" << std::endl;
+        return;
+      }
+      need_detachment = true;
+    }
+    dump_heap(thread);
+    if (need_detachment) {
+      if (graal_detach_thread(thread)) {
+        std::cout << "Failed to detach" << std::endl;
+      }
+    }
+  }
+}
+
 int main(int argc, char **argv) {
-    graal_isolate_t *isolate = nullptr;
     graal_isolatethread_t *thread = nullptr;
+
+  if (signal(SIGUSR1, sig_handler) == SIG_ERR) {
+    std::cout << "Main: failed to register signal handler" << std::endl;
+  }
 
     if (graal_create_isolate(nullptr, &isolate, &thread)) {
         std::cout << "Failed to create isolate and thread" << std::endl;
